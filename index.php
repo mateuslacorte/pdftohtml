@@ -30,5 +30,16 @@
 
     <!-- Bootstrap JS (optional) -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Credits and License -->
+    <footer class="mt-5">
+        <div class="container">
+            <p class="text-center">
+                Developed by <a href="https://linkedin.com/in/mateuslacorte">Mateus M. Côrtes (Lacorte)</a> - 
+                <a href="https://github.com/mateuslacorte">GitHub</a>: <a href="https://github.com/mateuslacorte/pdftohtml">mateuslacorte/pdftohtml</a><br>
+                Licensed under the <a href="https://opensource.org/licenses/MIT">MIT License</a>.
+            </p>
+        </div>
+    </footer>
 </body>
 </html>
