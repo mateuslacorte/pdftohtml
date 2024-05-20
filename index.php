@@ -15,7 +15,7 @@
                 </div>
                 <?php
                 if (isset($_GET['message'])) {
-                    echo "<div class='alert alert-info'>{$_GET['message']}</div>";
+                    echo "<div class='alert alert-{$_GET['status']}'>{$_GET['message']}</div>";
                 }
                 ?>
                 <form action="convert.php" method="post" enctype="multipart/form-data">
