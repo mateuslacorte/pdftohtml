@@ -11,13 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['pdfFile'])) {
     finfo_close($finfo);
 
     if (!in_array($mimeType, $allowedMimeTypes)) {
-        header("Location: /?message=Error: Only PDF files are allowed.");
+        header("Location: /?message=Error: Only PDF files are allowed.&status=danger");
         exit();
     }
 
     // Validate file size
     if ($_FILES['pdfFile']['size'] > $maxFileSize) {
-        header("Location: /?message=Error: File size exceeds the maximum limit of 5MB.");
+        header("Location: /?message=Error: File size exceeds the maximum limit of 5MB.&status=danger");
         exit();
     }
 
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['pdfFile'])) {
         $clamavScan = shell_exec("clamscan --infected --remove " . escapeshellarg($uploadFile));
         if (strpos($clamavScan, "Infected files: 0") === false) {
             unlink($uploadFile); // Remove the infected file
-            header("Location: /?message=Error: The file is infected and has been removed.");
+            header("Location: /?message=Error: The file is infected and has been removed.&status=danger");
             exit();
         }
 
@@ -49,18 +49,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['pdfFile'])) {
         exec($command, $output, $returnVar);
 
         if ($returnVar == 0) {
-            header("Location: /?message=Conversion successful. <a href='$outputFile'>View HTML</a>");
+            header("Location: /?message=Conversion successful. <a href='$outputFile'>View HTML</a>&status=success");
             exit();
         } else {
-            header("Location: /?message=Conversion failed. Error code: $returnVar");
+            header("Location: /?message=Conversion failed. Error code: $returnVar&status=danger");
             exit();
         }
     } else {
-        header("Location: /?message=File upload failed.");
+        header("Location: /?message=File upload failed.&status=danger");
         exit();
     }
 } else {
-    header("Location: /?message=No file uploaded.");
+    header("Location: /?message=No file uploaded.&status=danger");
     exit();
 }
 ?>
