@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['pdfFile'])) {
-    $uploadDir = 'uploads/';
+    $uploadDir = './uploads/';
     $uploadFile = $uploadDir . basename($_FILES['pdfFile']['name']);
     $allowedMimeTypes = ['application/pdf'];
     $maxFileSize = 5 * 1024 * 1024; // 5MB
@@ -29,8 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['pdfFile'])) {
     // Move the uploaded file to the uploads directory
     if (move_uploaded_file($_FILES['pdfFile']['tmp_name'], $uploadFile)) {
         // Security scan using ClamAV
-        $clamavScan = shell_exec("clamscan --infected --remove --no-summary " . escapeshellarg($uploadFile));
-
+        $clamavScan = shell_exec("clamscan --infected --remove " . escapeshellarg($uploadFile));
         if (strpos($clamavScan, "Infected files: 0") === false) {
             unlink($uploadFile); // Remove the infected file
             header("Location: /?message=Error: The file is infected and has been removed.");
